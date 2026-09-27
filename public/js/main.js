@@ -40,7 +40,7 @@ const playAudio = async function(event, next) {
   audioBoxes[which].analyser = audioBoxes[which].audioCtx.createAnalyser()
   audioBoxes[which].analyser.fftSize = 1024
 
-  audioBoxes[which].osc.type = 'sawtooth'
+  audioBoxes[which].osc.type = document.querySelector('#noise' + which).value
 
   audioBoxes[which].gainNode = audioBoxes[which].audioCtx.createGain()
   audioBoxes[which].gainNode.gain.value = .1
@@ -116,6 +116,14 @@ const makeBox = async function( event ) {
   inputFi.placeholder = "filter"
   inputFi.value = "300"
 
+  let labelN = document.createElement("label");
+  labelN.textContent = "Noise Type (ex \"sine\" \"sawtooth\" \"square\")";
+  let inputN = document.createElement("input")
+  inputN.type = "text"
+  inputN.id = "noise" + next
+  inputN.placeholder = "noise"
+  inputN.value = "sawtooth"
+
   let startbutton = document.createElement("button")
   //startbutton.onclick = playAudio
   startbutton.textContent = "Play Audio";
@@ -133,6 +141,8 @@ const makeBox = async function( event ) {
   form.appendChild(inputG);
   form.appendChild(labelFi);
   form.appendChild(inputFi);
+  form.appendChild(labelN);
+  form.appendChild(inputN);
   form.appendChild(startbutton);
   form.appendChild(stopbutton);
 
